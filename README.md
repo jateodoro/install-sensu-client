@@ -8,5 +8,9 @@
 - Set the LDAP credentials and load environment variables.
 
     ```bash
+	chmod +x install-sensu-client.sh && \
+	chmod +x sensu-plugins/linux-plugins/basic/*.rb && \
+    chmod +x sensu-plugins/linux-plugins/*.rb 
+	
     ./install-sensu-client.sh -a <CLIENT_ADDRESS> -n <CLIENT_NAME> -h <RABBITMQ_HOST>
     ```
