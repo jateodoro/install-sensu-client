@@ -37,7 +37,7 @@ docker network create adopnetwork && \
 rm -f container-selinux-2.9-4.el7.noarch.rpm && \
 docker run --restart=always -d --name sensu-client --net="adopnetwork" --expose 4567 -v /:/rootfs:ro -v /var/run:/var/run:rw -v /var/lib/docker/:/var/lib/docker:ro -v /data/nfs/sensu-client/plugins/:/app/sensu/plugins -v /data/nfs/sensu-client/ssl:/ssl -e PLUGINS_DIR="/etc/sensu/plugins" -e JENKINS_PREFIX="jenkins" -e CLIENT_ADDRESS="${a}" -e CLIENT_NAME="${n}" -e SUB="basic" -e RABBITMQ_HOST="${h}" -e RABBITMQ_PORT=5672 -e RABBITMQ_USER=guest -e RABBITMQ_PASS=guest -e RABBITMQ_VHOST="/" -e SENSU_URL=sensu-uchiwa:3000 arypurnomoz/sensu-client && \
 docker cp sensu-client:/tmp/run.sh . && \
-sed -i 's/    $ADDITIONAL_INFO/    \$ADDITIONAL_INFO,\n    "tags": {\n        "client": "sg_customs", \n        "environment": "$n" \n    },\n    "keepalive": { \n        "handlers": ["mailer"],\n        "thresholds": { \n            "warning": 600, \n            "critical": 900 \n        } \n    }/g' run.sh && \
+sed -e "s/    \$ADDITIONAL_INFO/    \$ADDITIONAL_INFO,\n    \"tags\": {\n        \"client\": \"sg_customs\", \n        \"environment\": \"$n\" \n    },\n    \"keepalive\": { \n        \"handlers\": [\"mailer\"],\n        \"thresholds\": { \n            \"warning\": 600, \n            \"critical\": 900 \n        } \n    }/g" run.sh && \
 sed -i -e ':a' -e 'N' -e '$!ba' -e "s/\"ssl\":.*\n.*\n.*\n.*},//g" run.sh && \
 docker cp run.sh sensu-client:/tmp/ && \
 docker restart sensu-client
