@@ -2,7 +2,7 @@ usage(){
         echo "$0 [-a <client address>] [-n <client name>] [-h <rabbitmq host>]"
 }
 
-while getopts ":a:n:h" opt; do
+while getopts ":a:n:h:" opt; do
         case $opt in
                 a)
                         a=${OPTARG}
@@ -22,8 +22,7 @@ if [ -z "${a}" ] || [ -z "${n}" ] || [ -z "${h}" ]; then
         exit 1
 fi
 
-cd /tmp && \
-sudo yum install -y policycoreutils-python wget git && \
+sudo yum install -y policycoreutils-python wget && \
 wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.9-4.el7.noarch.rpm && \
 sudo rpm -i container-selinux-2.9-4.el7.noarch.rpm && \
 sudo yum install -y yum-utils && \
@@ -40,9 +39,6 @@ docker run --restart=always -d --name sensu-client --net="adopnetwork" --expose 
 docker cp sensu-client:/tmp/run.sh . && \
 sed -i 's/    $ADDITIONAL_INFO/    \$ADDITIONAL_INFO,\n    "tags": {\n        "client": "sg_customs", \n        "environment": "${n}" \n    },\n    "keepalive": { \n        "handlers": ["mailer"],\n        "thresholds": { \n            "warning": 600, \n            "critical": 900 \n        } \n    }/g' run.sh && \
 sed -i -e ':a' -e 'N' -e '$!ba' -e "s/\"ssl\":.*\n.*\n.*\n.*},//g" run.sh && \
-git clone https://github.com/jateodoro/sensu-plugins.git && \
-chmod +x sensu-plugins/linux-plugins/basic/*.rb && \
-chmod +x sensu-plugins/linux-plugins/*.rb && \
 docker cp run.sh sensu-client:/tmp/ && \
 docker restart sensu-client
 
