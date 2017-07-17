@@ -43,6 +43,6 @@ docker cp run.sh sensu-client:/tmp/ && \
 docker restart sensu-client
 
 docker exec sensu-client rm -rf /etc/sensu/plugins && \
-docker cp sensu-plugins/linux-plugins sensu-client:/etc/sensu/plugins && \
+docker cp linux-plugins sensu-client:/etc/sensu/plugins && \
 docker exec -it sensu-client /bin/bash -c "cd /opt/sensu/embedded/bin/ && ./gem install sensu-plugins-cpu-usage && ./gem install sensu-plugins-disk-checks" && \
 rm -rf run.sh sensu-plugins
