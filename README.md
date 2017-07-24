@@ -12,5 +12,5 @@
 	chmod +x linux-plugins/basic/*.rb && \
     chmod +x linux-plugins/*.rb 
 	
-    ./install-sensu-client.sh -a <CLIENT_ADDRESS> -n <CLIENT_NAME> -h <RABBITMQ_HOST>
+    ./install-sensu-client.sh -c <CLIENT_NAME> -a <SERVER_ADDRESS> -n <SERVER_NAME> -h <RABBITMQ_HOST>
     ```
