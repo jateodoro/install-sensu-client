@@ -1,7 +1,8 @@
 # sensu-plugins
 - Export Container global variables.
 
-    - `a` - The server's IP Address.
+    - `c` - The client name. 
+    - `a` - The server's IP address.
     - `n` - The server's hostname.
     - `h` - The rabbitmq host
 
