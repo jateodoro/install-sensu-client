@@ -26,8 +26,8 @@ if [ -z "${c}" ] || [ -z "${a}" ] || [ -z "${n}" ] || [ -z "${h}" ]; then
 fi
 
 sudo yum install -y policycoreutils-python wget && \
-wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.9-4.el7.noarch.rpm && \
-sudo rpm -i container-selinux-2.9-4.el7.noarch.rpm && \
+wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.21-1.el7.noarch.rpm && \
+sudo rpm -i container-selinux-2.21-1.el7.noarch.rpm && \
 sudo yum install -y yum-utils && \
 sudo yum install -y device-mapper-persistent-data lvm2 && \
 sudo yum-config-manager --enable rhel-7-server-extras-rpms && \
